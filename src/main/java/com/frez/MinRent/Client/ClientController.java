@@ -1,20 +1,25 @@
 package com.frez.MinRent.Client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
+
 @RestController
 @RequestMapping("clients")
 public class ClientController {
+    private final ClientService clientService;
+
+    @Autowired
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
     @GetMapping
     public List<Client> getAllClients(){
-        return List.of(
-                new Client(UUID.randomUUID(), "Jan", "Pawel", "Pawel2137@holy.god", Client.Gender.MALE),
-                new Client(UUID.randomUUID(), "Plavimir", "Vutin", "VutinKGB@iksde.uk", Client.Gender.MALE)
-        );
+        return clientService.getAllClients();
     }
 
 }

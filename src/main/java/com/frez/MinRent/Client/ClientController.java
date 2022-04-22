@@ -1,9 +1,7 @@
 package com.frez.MinRent.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,11 @@ public class ClientController {
     @GetMapping
     public List<Client> getAllClients(){
         return clientService.getAllClients();
+    }
+    @PostMapping
+    public void addNewClient(@RequestBody Client client){
+        clientService.addNewClient(client);
+
     }
 
 }

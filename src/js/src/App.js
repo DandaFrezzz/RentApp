@@ -7,8 +7,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 import AddClientForm from './AddClientForm'
 
 
+const tableBottomMargin = {marginBottom: '1000px'};
 
-const getIndicatorIcon = () => <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 
 function App() {
     const [list, setList] = useState([]);
@@ -65,15 +66,24 @@ function App() {
    
    
 
-    return (
-
-        
+    return (  
     <Conteiner>
-         <Table dataSource={list} size='small' pagination={false} columns={columns} rowKey='clientId'/>
+      <Table 
+        style={{paddingBottom: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+         size='large'
+         dataSource={list} 
+         pagination={false} 
+         columns={columns} 
+         rowKey='clientId'/>
 
-         <Modal title='Add new client' visible={isToggled} onCancel={toggle} onOk={toggle} width={1000}>
+         <Modal 
+            title='Add new client' 
+            visible={isToggled} 
+            onCancel={toggle} 
+            onOk={toggle} 
+            width={1000}>
+
            <AddClientForm/>
-           
          </Modal>
 
          <Footer numberOfClients={list.length} handleAddClientClickEvent={toggle}></Footer>        

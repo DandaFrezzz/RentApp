@@ -1,5 +1,7 @@
 package com.frez.MinRent.Client;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class Client {
@@ -12,7 +14,11 @@ public class Client {
         MALE, FEMALE
     }
 
-    public Client(UUID clientId, String firstName, String lastName, String email, Gender gender) {
+    public Client(@JsonProperty("clientId") UUID clientId,
+                  @JsonProperty("firstName") String firstName,
+                  @JsonProperty("lastName") String lastName,
+                  @JsonProperty("email") String email,
+                  @JsonProperty("gender") Gender gender) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,5 +44,16 @@ public class Client {
 
     public Gender getGender() {
         return gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientId=" + clientId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                '}';
     }
 }

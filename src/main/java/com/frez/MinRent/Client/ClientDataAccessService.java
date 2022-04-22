@@ -23,6 +23,15 @@ public class ClientDataAccessService {
                 "SELECT client_id, " + "first_name, " + "last_name, " + "email, " + "gender " + "FROM " + "client";
         return jdbcTemplate.query(sql, mapClientsFromDB());
     }
+     int insertClient(UUID clientId, Client client) {
+
+        String sql = "" +
+                "INSERT INTO client(client_id, first_name, last_name, email, gender)" +
+                " VALUES(?, ?, ?, ?, ?)";
+         return jdbcTemplate.update(sql, clientId, client.getFirstName(), client.getLastName(), client.getEmail(), client.getGender().name().toUpperCase());
+
+
+    }
 
     private RowMapper<Client> mapClientsFromDB() {
         return (resultSet, i) -> {
@@ -37,5 +46,6 @@ public class ClientDataAccessService {
             return new Client(clientId, firstName, lastName, email, gender);
         };
     }
+
 
 }

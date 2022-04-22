@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { getAllClients } from './client';
-import { Table, Avatar, Spin, Icon } from 'antd';
+import { Table, Avatar, Spin, Icon, Modal } from 'antd';
 import Conteiner from './Conteiner';
+import Footer from './Footer';
 import { LoadingOutlined } from '@ant-design/icons';
+import AddClientForm from './AddClientForm'
+
 
 
 const getIndicatorIcon = () => <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function App() {
     const [list, setList] = useState([]);
-
+    
+    const [isToggled, setIsToggled] = React.useState(false);
+    const toggle = React.useCallback(() => setIsToggled(!isToggled));
     useEffect(() => {
       let mounted = true;
       getAllClients()
@@ -64,9 +69,16 @@ function App() {
 
         
     <Conteiner>
-         <Table dataSource={list} pagination={false} columns={columns} rowKey='clientId'/>
+         <Table dataSource={list} size='small' pagination={false} columns={columns} rowKey='clientId'/>
+
+         <Modal title='Add new client' visible={isToggled} onCancel={toggle} onOk={toggle} width={1000}>
+           <AddClientForm/>
+           
+         </Modal>
+
+         <Footer numberOfClients={list.length} handleAddClientClickEvent={toggle}></Footer>        
     </Conteiner>
-   
+ 
     )
   
   }

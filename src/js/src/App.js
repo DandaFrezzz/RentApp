@@ -16,6 +16,7 @@ function App() {
     
     const [isToggled, setIsToggled] = React.useState(false);
     const toggle = React.useCallback(() => setIsToggled(!isToggled));
+    
     useEffect(() => {
       let mounted = true;
       getAllClients()
@@ -25,7 +26,7 @@ function App() {
           }
         })
       return () => mounted = false;
-    }, [])
+    }, [toggle])
   
     const columns = [
         {
@@ -82,8 +83,13 @@ function App() {
             onCancel={toggle} 
             onOk={toggle} 
             width={1000}>
+              
 
-           <AddClientForm/>
+           <AddClientForm 
+              onSuccess={() => {
+                toggle();
+              }}
+           />
          </Modal>
 
          <Footer numberOfClients={list.length} handleAddClientClickEvent={toggle}></Footer>        

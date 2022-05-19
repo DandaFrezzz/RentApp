@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Formik } from 'formik';
 import { Input, Button, Tag } from 'antd';
 import { addNewClient } from './client';
@@ -6,14 +6,7 @@ import { addNewClient } from './client';
 const inputBottomMargin = {marginBottom: '10px'};
 const tagStyle = {backgroundColor: '#f50', color: 'white', ...inputBottomMargin};
 
-class AddClientForm extends Component {
-
-
-
-
-    render (){
-        return (
-          
+const AddClientForm = (props) => (
             <Formik
             initialValues={{ firstName: '', lastName: '', email: '', gender: '' }}
             validate={values => {
@@ -45,15 +38,13 @@ class AddClientForm extends Component {
                 return errors;
             }}
             onSubmit={(client, { setSubmitting }) => {
-                addNewClient(client).then(() => {
-                    alert(JSON.stringify(client));
-                    setSubmitting(false);
+                     addNewClient(client).then(() => {
+                        props.onSuccess();
+                        //setSubmitting(false);
+                    })
+                   
                     
-                })
-                
-               
-            }}
-            >
+            }}>
             {({
                 values,
                 errors,
@@ -112,9 +103,6 @@ class AddClientForm extends Component {
             </Formik>
       
         );
-    }
 
-
-}
 
 export default AddClientForm;
